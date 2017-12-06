@@ -1,11 +1,8 @@
 include TodoAppReducer;
 include Selectors;
+include TodoUtil;
 
 let component = ReasonReact.reducerComponent("TodoApp");
-
-let s = ReasonReact.stringToElement;
-let getTargetValue = event => ReactDOMRe.domElementToObj(ReactEventRe.Form.target(event))##value;
-
 
 let make = (_children) => {
 	...component,
@@ -14,24 +11,14 @@ let make = (_children) => {
 	render: ({ state: state, reduce }) =>
 		<div>
 			<section className="todoapp">
-				<header className="header">
-					<h1>(s("todos"))</h1>
-					<input
-						className="new-todo"
-						placeholder="What needs to be done?"
-						autoFocus=(Js.Boolean.to_js_boolean(true))
-						onInput=((event) =>
-							(reduce(() =>
-									UpdateNewDescription(getTargetValue(event))
-							))())
-						onKeyDown=((event) =>
-							if (ReactEventRe.Keyboard.key(event) == "Enter") {
-								(reduce(() => AddTodo))()
-							}
-						)
-						value=(state.newDescription)
-					/>
-				</header>
+				<TodoHeader
+					newDescription=(state.newDescription)
+					onDescriptionChanged=((description) =>
+						(reduce(() =>
+								UpdateNewDescription(description)
+						))())
+						onAddTodo=(reduce(() => AddTodo))
+				/>
 				/* This section should be hidden by default and shown when there are todos */
 				<section className="main">
 					<input

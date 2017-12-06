@@ -29452,18 +29452,12 @@ var React                        = __webpack_require__(39);
 var Js_boolean                   = __webpack_require__(94);
 var ReasonReact                  = __webpack_require__(58);
 var TodoItem$ReactTemplate       = __webpack_require__(208);
+var TodoUtil$ReactTemplate       = __webpack_require__(214);
 var Selectors$ReactTemplate      = __webpack_require__(212);
+var TodoHeader$ReactTemplate     = __webpack_require__(215);
 var TodoAppReducer$ReactTemplate = __webpack_require__(213);
 
 var component = ReasonReact.reducerComponent("TodoApp");
-
-function s(prim) {
-  return prim;
-}
-
-function getTargetValue($$event) {
-  return $$event.target.value;
-}
 
 function make() {
   var newrecord = component.slice();
@@ -29481,7 +29475,7 @@ function make() {
               className: "footer"
             }, React.createElement("span", {
                   className: "todo-count"
-                }, React.createElement("strong", undefined, Selectors$ReactTemplate.numRemainingTodos(state).toString()), match$1 !== 0 ? " item left" : " items left"), React.createElement("ul", {
+                }, React.createElement("strong", undefined, TodoUtil$ReactTemplate.s(Selectors$ReactTemplate.numRemainingTodos(state).toString())), match$1 !== 0 ? TodoUtil$ReactTemplate.s(" item left") : TodoUtil$ReactTemplate.s(" items left")), React.createElement("ul", {
                   className: "filters"
                 }, React.createElement("li", {
                       onClick: (function () {
@@ -29492,7 +29486,7 @@ function make() {
                     }, React.createElement("a", {
                           className: match$2 !== 0 ? "selected" : "",
                           href: "#/"
-                        }, "All")), React.createElement("li", {
+                        }, TodoUtil$ReactTemplate.s("All"))), React.createElement("li", {
                       onClick: (function () {
                           return Curry._2(reduce, (function () {
                                         return /* UpdateVisibility */Block.__(5, [/* Active */1]);
@@ -29501,7 +29495,7 @@ function make() {
                     }, React.createElement("a", {
                           className: match$3 !== 0 ? "selected" : "",
                           href: "#/active"
-                        }, "Active")), React.createElement("li", {
+                        }, TodoUtil$ReactTemplate.s("Active"))), React.createElement("li", {
                       onClick: (function () {
                           return Curry._2(reduce, (function () {
                                         return /* UpdateVisibility */Block.__(5, [/* Completed */2]);
@@ -29510,41 +29504,26 @@ function make() {
                     }, React.createElement("a", {
                           className: match$4 !== 0 ? "selected" : "",
                           href: "#/completed"
-                        }, "Completed"))), React.createElement("button", {
+                        }, TodoUtil$ReactTemplate.s("Completed")))), React.createElement("button", {
                   className: "clear-completed",
                   onClick: (function () {
                       return Curry._2(reduce, (function () {
                                     return /* ClearCompleted */1;
                                   }), /* () */0);
                     })
-                }, "Clear completed"));
+                }, TodoUtil$ReactTemplate.s("Clear completed")));
       } else {
         tmp = null;
       }
       return React.createElement("div", undefined, React.createElement("section", {
                       className: "todoapp"
-                    }, React.createElement("header", {
-                          className: "header"
-                        }, React.createElement("h1", undefined, "todos"), React.createElement("input", {
-                              className: "new-todo",
-                              autoFocus: Js_boolean.to_js_boolean(/* true */1),
-                              placeholder: "What needs to be done?",
-                              value: state[/* newDescription */1],
-                              onKeyDown: (function ($$event) {
-                                  if ($$event.key === "Enter") {
-                                    return Curry._2(reduce, (function () {
-                                                  return /* AddTodo */0;
-                                                }), /* () */0);
-                                  } else {
-                                    return 0;
-                                  }
-                                }),
-                              onInput: (function ($$event) {
-                                  return Curry._2(reduce, (function () {
-                                                return /* UpdateNewDescription */Block.__(0, [$$event.target.value]);
-                                              }), /* () */0);
-                                })
-                            })), React.createElement("section", {
+                    }, ReasonReact.element(/* None */0, /* None */0, TodoHeader$ReactTemplate.make(state[/* newDescription */1], (function (description) {
+                                return Curry._2(reduce, (function () {
+                                              return /* UpdateNewDescription */Block.__(0, [description]);
+                                            }), /* () */0);
+                              }), Curry._1(reduce, (function () {
+                                    return /* AddTodo */0;
+                                  })), /* array */[])), React.createElement("section", {
                           className: "main"
                         }, React.createElement("input", {
                               className: "toggle-all",
@@ -29560,7 +29539,7 @@ function make() {
                                 })
                             }), React.createElement("label", {
                               htmlFor: "toggle-all"
-                            }, "Mark all as complete"), React.createElement("ul", {
+                            }, TodoUtil$ReactTemplate.s("Mark all as complete")), React.createElement("ul", {
                               className: "todo-list"
                             }, $$Array.of_list(List.map((function (item) {
                                         return ReasonReact.element(/* None */0, /* None */0, TodoItem$ReactTemplate.make(/* Some */[item[/* completed */2]], /* Some */[item[/* description */1]], /* Some */[item[/* editing */3]], Curry._1(reduce, (function () {
@@ -29581,9 +29560,9 @@ function make() {
                       className: "info"
                     }, React.createElement("p", undefined, "Double-click to edit a todo"), React.createElement("p", undefined, "Created by ", React.createElement("a", {
                               href: "http://github.com/bspaulding"
-                            }, "Bradley Spaulding")), React.createElement("p", undefined, "Part of ", React.createElement("a", {
+                            }, TodoUtil$ReactTemplate.s("Bradley Spaulding"))), React.createElement("p", undefined, "Part of ", React.createElement("a", {
                               href: "http://todomvc.com"
-                            }, "TodoMVC"))));
+                            }, TodoUtil$ReactTemplate.s("TodoMVC")))));
     });
   newrecord[/* initialState */10] = TodoAppReducer$ReactTemplate.initialState;
   newrecord[/* reducer */12] = TodoAppReducer$ReactTemplate.reducer;
@@ -29598,13 +29577,17 @@ var numRemainingTodos = Selectors$ReactTemplate.numRemainingTodos;
 
 var filteredItems = Selectors$ReactTemplate.filteredItems;
 
+var s = TodoUtil$ReactTemplate.s;
+
+var getTargetValue = TodoUtil$ReactTemplate.getTargetValue;
+
 exports.initialState      = initialState;
 exports.reducer           = reducer;
 exports.numRemainingTodos = numRemainingTodos;
 exports.filteredItems     = filteredItems;
-exports.component         = component;
 exports.s                 = s;
 exports.getTargetValue    = getTargetValue;
+exports.component         = component;
 exports.make              = make;
 /* component Not a pure module */
 
@@ -31226,6 +31209,80 @@ function reducer(action, state) {
 exports.initialState = initialState;
 exports.reducer      = reducer;
 /* No side effect */
+
+
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Generated by BUCKLESCRIPT VERSION 2.1.0, PLEASE EDIT WITH CARE
+
+
+
+function s(prim) {
+  return prim;
+}
+
+function getTargetValue($$event) {
+  return $$event.target.value;
+}
+
+exports.s              = s;
+exports.getTargetValue = getTargetValue;
+/* No side effect */
+
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Generated by BUCKLESCRIPT VERSION 2.1.0, PLEASE EDIT WITH CARE
+
+
+var Curry                  = __webpack_require__(14);
+var React                  = __webpack_require__(39);
+var Js_boolean             = __webpack_require__(94);
+var ReasonReact            = __webpack_require__(58);
+var TodoUtil$ReactTemplate = __webpack_require__(214);
+
+var component = ReasonReact.statelessComponent("TodoHeader");
+
+function make(newDescription, onDescriptionChanged, onAddTodo, _) {
+  var newrecord = component.slice();
+  newrecord[/* render */9] = (function () {
+      return React.createElement("header", {
+                  className: "header"
+                }, React.createElement("h1", undefined, TodoUtil$ReactTemplate.s("todos")), React.createElement("input", {
+                      className: "new-todo",
+                      autoFocus: Js_boolean.to_js_boolean(/* true */1),
+                      placeholder: "What needs to be done?",
+                      value: newDescription,
+                      onKeyDown: (function ($$event) {
+                          if ($$event.key === "Enter") {
+                            return Curry._1(onAddTodo, /* () */0);
+                          } else {
+                            return 0;
+                          }
+                        }),
+                      onInput: (function ($$event) {
+                          return Curry._1(onDescriptionChanged, TodoUtil$ReactTemplate.getTargetValue($$event));
+                        })
+                    }));
+    });
+  return newrecord;
+}
+
+var s = TodoUtil$ReactTemplate.s;
+
+var getTargetValue = TodoUtil$ReactTemplate.getTargetValue;
+
+exports.s              = s;
+exports.getTargetValue = getTargetValue;
+exports.component      = component;
+exports.make           = make;
+/* component Not a pure module */
 
 
 /***/ })
